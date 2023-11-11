@@ -16,6 +16,7 @@ class MyWidget(QMainWindow):
         self.current_motion = 0
         self.field = [" "] * 9
         self.count_btn = 0
+        self.game_active = True  # Флаг для отслеживания состояния игры
 
         self.start_btn.clicked.connect(self.start_game)
 
@@ -31,6 +32,9 @@ class MyWidget(QMainWindow):
         return any(all(field[i] == sign for i in combo) for combo in winning_combinations)
 
     def btn_realize(self, btn, cur_mot):
+        if not self.game_active:  # Если игра не активна, выходим
+            return
+
         self.x_turn = not self.x_turn
         sign = self.x_sign if self.x_turn else self.o_sign
         btn.setText(sign)
@@ -38,24 +42,29 @@ class MyWidget(QMainWindow):
         self.current_motion = cur_mot
         self.field[self.current_motion] = sign
 
+        btn.setEnabled(False)  # Делаем кнопку неактивной
+
         if self.win_check(self.field, self.x_sign):
             self.res_txt.setText(self.x_sign)
+            self.game_active = False  # Игра завершена
         elif self.win_check(self.field, self.o_sign):
             self.res_txt.setText(self.o_sign)
+            self.game_active = False  # Игра завершена
         elif self.count_btn == 8:
             self.res_txt.setText('TIE')
+            self.game_active = False  # Игра завершена
 
         self.count_btn += 1
-    
-
 
     def start_game(self):
         self.res_txt.setText(' ')
         self.count_btn = 0
+        self.game_active = True  # Включаем игру
 
         self.x_turn = False
         for btn in self.buttons:
             btn.setText('')
+            btn.setEnabled(True)  # Включаем кнопку
 
         self.field = [" "] * 9
 
