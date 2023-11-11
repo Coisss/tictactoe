@@ -22,7 +22,6 @@ class MyWidget(QMainWindow):
         for i, btn in enumerate(self.buttons):
             btn.clicked.connect(lambda _, btn=btn, cur_mot=i: self.btn_realize(btn, cur_mot))
 
-
     def win_check(self, field, sign):
         winning_combinations = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],  # rows
@@ -47,7 +46,7 @@ class MyWidget(QMainWindow):
             self.res_txt.setText('TIE')
 
         self.count_btn += 1
-
+    
 
 
     def start_game(self):
