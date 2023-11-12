@@ -129,7 +129,7 @@
    </palette>
   </property>
   <property name="windowTitle">
-   <string>крестики - нолики</string>
+   <string notr="true">Tic Tac Toe</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
